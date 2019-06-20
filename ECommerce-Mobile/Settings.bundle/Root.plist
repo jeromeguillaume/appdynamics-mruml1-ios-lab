@@ -18,7 +18,7 @@
 			<key>KeyboardType</key>
 			<string>URL</string>
 			<key>DefaultValue</key>
-			<string>http://ec2-54-203-78-38.us-west-2.compute.amazonaws.com/appdynamicspilot/</string>
+			<string>http://129.213.184.156/appdynamicspilot/</string>
 			<key>Type</key>
 			<string>URL</string>
 			<key>Title</key>
@@ -72,7 +72,7 @@
 			<key>Key</key>
 			<string>collectorUrl</string>
 			<key>DefaultValue</key>
-			<string>http://54.244.95.83:9001</string>
+			<string>http://459controllernossh-controller45jerome-af4cdqf6.srv.ravcloud.com:7001</string>
 			<key>KeyboardType</key>
 			<string>URL</string>
 		</dict>
@@ -84,7 +84,7 @@
 			<key>Key</key>
 			<string>appKey</string>
 			<key>DefaultValue</key>
-			<string>DEMO-AAB-AUU</string>
+			<string>EUM-AAB-AUA</string>
 		</dict>
 	</array>
 	<key>StringsTable</key>

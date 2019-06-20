@@ -5,10 +5,10 @@
 //  Created by Adam Leftik on 7/2/13.
 //  Copyright (c) 2013 Adam Leftik. All rights reserved.
 //
-
 #import "CartViewController.h"
 #import "AppDelegate.h"
 #import "CheckoutRequest.h"
+#import <ADEUMInstrumentation/ADEumInstrumentation.h>
 
 @interface CartViewController()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -111,6 +111,10 @@
 }
 
 -(void) checkout:(id) sender {
+    
+    // jeromeg - AppDynamics: Start Session Frame
+    self.checkoutSessionFrame = [ADEumInstrumentation startSessionFrame:@"Checkout AD"];
+    
     CheckoutRequest *request = [[CheckoutRequest alloc] init];
     [request checkout];
 
@@ -121,9 +125,24 @@
                                           otherButtonTitles:nil];
 //    [alert setAccessibilityLabel:@"CheckoutDialog"];
 //    [alert set]
+    
+    // jeromeg - AppDynamics: Give More details concerning Session Frame=>detail of Order
+    NSString *newSessionName = [NSString stringWithFormat:@"%@", request.checkoutResponse];
+    [self.checkoutSessionFrame updateName:newSessionName];
+    
+    // jeromeg - AppDynamics: Custom Metric
+    NSArray *items1 = [newSessionName componentsSeparatedByString:@"$"];
+    NSString *str1=[items1 objectAtIndex:1];
+    NSArray *items2 = [str1 componentsSeparatedByString:@" "];
+    double_t myInt =[[items2 objectAtIndex:0] doubleValue];
+    [ADEumInstrumentation reportMetricWithName:@"CartAmount" value:myInt];
+    
     [alert show];
     [self clearCart:@"CartItem"];
     
+    // jeromeg - AppDynamics: Stop Sesion Frame
+    [self.checkoutSessionFrame end];
+    self.checkoutSessionFrame = nil;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

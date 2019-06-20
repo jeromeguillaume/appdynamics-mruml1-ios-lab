@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import "DetailViewController.h"
+#import <ADEUMInstrumentation/ADEumSessionFrame.h>
 
 @interface CartViewController : UITableViewController <NSFetchedResultsControllerDelegate>
 @property (strong, nonatomic) DetailViewController *detailViewController;
@@ -17,5 +18,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *checkoutButton;
 @property (nonatomic, strong, readwrite) IBOutlet UIActivityIndicatorView *   activityIndicator;
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) ADEumSessionFrame *checkoutSessionFrame;
+
 
 @end

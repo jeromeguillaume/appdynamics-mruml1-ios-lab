@@ -8,6 +8,7 @@
 
 #import "SettingsViewController.h"
 #import "AppDelegate.h"
+#import <ADEUMInstrumentation/ADEumInstrumentation.h>
 
 @interface SettingsViewController ()
 
@@ -68,11 +69,20 @@
 
 - (void)viewDidLoad
 {
+    // jeromeg - AppDynamics: breadcrumb
+    NSString *breadcrumb = @"Settings";
+    ADEumBreadcrumbVisibility modeJeromeg = ADEumBreadcrumbVisibilityCrashesAndSessions;
+    [ADEumInstrumentation leaveBreadcrumb:breadcrumb mode:(ADEumBreadcrumbVisibility)modeJeromeg];
+
     [super viewDidLoad];
     [self updateSettings];
 }
 
 - (IBAction) crashMe {
+    NSString *breadcrumb = @"Crash me";
+    ADEumBreadcrumbVisibility modeJeromeg = ADEumBreadcrumbVisibilityCrashesAndSessions;
+    [ADEumInstrumentation leaveBreadcrumb:breadcrumb mode:(ADEumBreadcrumbVisibility)modeJeromeg];
+
    strcpy(0, "bla");
 }
 

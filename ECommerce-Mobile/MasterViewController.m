@@ -11,6 +11,7 @@
 #import "BookListParser.h"
 #import "Product.h"
 #import "AppDelegate.h"
+#import <ADEUMInstrumentation/ADEumInstrumentation.h>
 
 @interface MasterViewController ()
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -29,6 +30,10 @@ BookListParser *parser;
         self.tabBarItem.image = [UIImage imageNamed:@"home.png"];
         self.tabBarController.title = @"Home";
         [self setAccessibilityLabel:@"Table View"];
+        // jeromeg - AppDynamics: breadcrumb
+        NSString *breadcrumb = @"Best Sellers";
+        ADEumBreadcrumbVisibility modeJeromeg = ADEumBreadcrumbVisibilityCrashesAndSessions;
+        [ADEumInstrumentation leaveBreadcrumb:breadcrumb mode:(ADEumBreadcrumbVisibility)modeJeromeg];
     }
     
     return self;

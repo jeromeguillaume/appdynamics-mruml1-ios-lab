@@ -12,6 +12,7 @@
 #import "CartViewController.h"
 #import "SettingsViewController.h"
 #import "Reachability.h"
+#import <ADEUMInstrumentation/ADEumInstrumentation.h>
 
 @implementation AppDelegate
     @synthesize managedObjectContext = _managedObjectContext;
@@ -38,6 +39,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NSSetUncaughtExceptionHandler(&HandleExceptions);
+    
+    ADEumAgentConfiguration *adeumAgentConfig = [[ADEumAgentConfiguration alloc] initWithAppKey: @"EUM-AAB-AUA"];
+    adeumAgentConfig.collectorURL = @"http://459controllernossh-controller45jerome-af4cdqf6.srv.ravcloud.com:7001";
+    adeumAgentConfig.screenshotURL = adeumAgentConfig.collectorURL;
+    adeumAgentConfig.loggingLevel = ADEumLoggingLevelInfo;
+    [ADEumInstrumentation initWithConfiguration:adeumAgentConfig];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                           selector:@selector(onDefaultsChanged:)

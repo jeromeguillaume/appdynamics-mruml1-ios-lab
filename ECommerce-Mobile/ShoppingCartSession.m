@@ -9,6 +9,7 @@
 #import "ShoppingCartSession.h"
 #import "ItemImageRequest.h"
 #import "AppDelegate.h"
+#import <ADEUMInstrumentation/ADEumInstrumentation.h>
 
 @implementation ShoppingCartSession
     NSString *url;
@@ -54,6 +55,7 @@
    
     AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
     NSString *postString = @"username=";
+    [ADEumInstrumentation setUserData:@"User ID" value:appDelegate.username];
     postString = [postString stringByAppendingString:appDelegate.username];
     postString = [postString stringByAppendingString:@"&password="];
     postString = [postString stringByAppendingString:appDelegate.password];
